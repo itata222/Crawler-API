@@ -20,9 +20,11 @@ const checkCrawlingStatus=async(req,res)=>{
     const QueueUrl=req.query.QueueUrl;
     let tree;
     try {
-        if(finished)
-            tree=await Axios.get(url + `/get-tree?QueueUrl=${QueueUrl}`);
-
+        if(finished){
+            const treeResponse=await Axios.get(url + `/get-tree?QueueUrl=${QueueUrl}`);
+            tree=treeResponse.data;
+        }
+        
         tree==undefined? res.send('still running') : res.send({tree})
     } catch (e) {
         res.status(500).send({
