@@ -29,7 +29,7 @@ const checkCrawlingStatus=async(req,res)=>{
     } catch (e) {
         res.status(500).send({
             status:500,
-            message:'Checking status failed'
+            message:e.response.data.message
         })
     }
 }
