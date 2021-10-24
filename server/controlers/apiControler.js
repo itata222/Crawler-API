@@ -16,16 +16,15 @@ const startApi = async (req, res) => {
 };
 
 const checkCrawlingStatus = async (req, res) => {
-  const finished = req.finished;
-  const QueueUrl = req.query.QueueUrl;
+  const { QueueUrl, workID, maxDepth, maxTotalPages } = req.query;
   let tree;
   try {
-    if (finished) {
-      const treeResponse = await Axios.get(url + `/get-tree?QueueUrl=${QueueUrl}`);
-      tree = treeResponse.data;
-    }
-
-    tree == undefined ? res.send("still running") : res.send({ tree });
+    const treeResponse = await Axios.get(
+      url + `/get-tree?QueueUrl=${QueueUrl}&workID=${workID}&maxDepth=${parseInt(maxDepth)}&maxTotalPages=${parseInt(maxTotalPages)}`
+    );
+    tree = treeResponse.data.tree;
+    isfinished = treeResponse.data.finished;
+    res.send({ tree, isfinished });
   } catch (e) {
     res.status(500).send({
       status: 500,

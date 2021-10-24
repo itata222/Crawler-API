@@ -1,12 +1,10 @@
-const express = require('express');
-const { startApi, checkCrawlingStatus } = require('../controlers/apiControler');
-const { checkIfCrawlDoneRedis } = require('../middlewares/redis');
+const express = require("express");
+const { startApi, checkCrawlingStatus } = require("../controlers/apiControler");
 
 const router = new express.Router();
 
-router.post('/start-api',startApi)
+router.post("/start-api", startApi);
 
-router.get('/get-crawling-status',checkIfCrawlDoneRedis,checkCrawlingStatus)
-
+router.get("/get-crawling-status", checkCrawlingStatus);
 
 module.exports = router;
