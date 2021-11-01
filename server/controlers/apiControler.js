@@ -5,8 +5,8 @@ const url = "http://localhost:5000";
 const startApi = async (req, res) => {
   const { rootUrl, maxDepth, maxTotalPages } = req.body;
   try {
-    const resp = await Axios.post(url + "/start-manager", { rootUrl, maxDepth, maxTotalPages });
-    res.send({ QueueUrl: resp.data.QueueUrl, workID: resp.data.workID });
+    const response = await Axios.post(url + "/start-manager", { rootUrl, maxDepth, maxTotalPages });
+    res.send({ QueueUrl: response.data.QueueUrl, workID: response.data.workID });
   } catch (error) {
     res.status(500).send({
       status: 500,
